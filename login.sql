@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2025 at 08:08 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Apr 03, 2025 at 01:56 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,16 +34,16 @@ CREATE TABLE `products` (
   `Price` int(50) NOT NULL,
   `Quantity` int(50) NOT NULL,
   `Description` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `ProductName`, `Brand`, `Price`, `Quantity`, `Description`) VALUES
-(8, 'Attack Shark X11 GAMING MOUSE', 'Attack Shark', 1999, 100, 'MOUSE'),
-(9, 'Monitor', 'Asus Tuf Gaming', 8999, 100, 'Monitor Gaming'),
-(10, 'Ryzen 5 5600x', 'AMD', 12000, 100, 'PROCESSOR');
+(9, 'Monitor', 'Asus Tuf Gaming', 7999, 106, 'Monitor Gaming'),
+(10, 'Ryzen 5 5600x', 'AMD', 12000, 100, 'PROCESSOR'),
+(13, 'T-FORCE RAM 8GB', 'Asus Tuf Gaming', 1299, 30, 'RAM');
 
 -- --------------------------------------------------------
 
@@ -52,22 +52,21 @@ INSERT INTO `products` (`id`, `ProductName`, `Brand`, `Price`, `Quantity`, `Desc
 --
 
 CREATE TABLE `users` (
-  `Id` int(10) NOT NULL,
+  `id` int(50) NOT NULL,
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `password` varchar(200) NOT NULL,
+  `role` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`Id`, `firstName`, `lastName`, `email`, `password`) VALUES
-(9, 'Mariah', 'Dela Cruz', 'mariahdelacruz9@gmail.com', '07d7fd93ab2af634d6424ff8eb630bf9'),
-(10, 'xian', 'carlo', 'xiancarlo3@gmail.com', '3606320a0c10caef066494bbc9580456'),
-(11, 'Jin', 'Woo', 'Jinwoo@gmail.com', 'b3bad9c69853542ff97887c8ce8df1b7'),
-(12, 'Russel ', 'Santos', 'russelsantos00@gmail.com', '37cfb1589f0e058f22120f52d7fb472b');
+INSERT INTO `users` (`id`, `firstName`, `lastName`, `email`, `password`, `role`) VALUES
+(19, 'admin', 'admin', 'admin@gmail.com', '$2y$10$TSHj23LhF0jSMaYV9ybV5.0467Zd2.4BRcEg2euE/ZbZSSRoFyFGe', 'admin'),
+(20, 'user', 'user', 'user@gmail.com', '$2y$10$gFSQhtjNV1W5M1k9hAnumOoCP2Axw2cvmhX6lDF776epNdXLCuXvS', 'user');
 
 --
 -- Indexes for dumped tables
@@ -83,7 +82,7 @@ ALTER TABLE `products`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -93,13 +92,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

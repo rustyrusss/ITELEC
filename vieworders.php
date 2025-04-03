@@ -3,14 +3,36 @@ session_start();
 include 'connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
-    $id = $_POST['id'];
-    $sql = "DELETE FROM users WHERE id=$id";
+    $orderId = $_POST['order_id'];
+    $sql = "DELETE FROM orders WHERE orderid=$orderId";
     if ($conn->query($sql) === TRUE) {
-        $_SESSION['message'] = "User Deleted Successfully!";
+        $_SESSION['message'] = "Order Deleted Successfully!";
     } else {
-        $_SESSION['message'] = "Error Deleting User: " . $conn->error;
+        $_SESSION['message'] = "Error Deleting Order: " . $conn->error;
     }
-    header("Location: display_users.php");
+    header("Location: display_orders.php");
+    exit();
+}
+
+// Insert order logic
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insert'])) {
+    $email = $_POST['email'];
+    $product = $_POST['product'];
+    $quantity = $_POST['quantity'];
+    $total = $_POST['total'];
+
+    // SQL query to insert new order
+    $insertSql = "INSERT INTO orders (email, product, quantity, total) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($insertSql);
+    $stmt->bind_param("ssid", $email, $product, $quantity, $total);
+
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "Order placed successfully!";
+    } else {
+        $_SESSION['message'] = "Error placing order: " . $conn->error;
+    }
+    $stmt->close();
+    header("Location: display_orders.php");
     exit();
 }
 ?>
@@ -20,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users Table</title>
+    <title>Orders Table</title>
     
     <style> 
         body {
@@ -34,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
             color: green;
             font-size: 18px;
             margin-bottom: 10px;
-
         }
 
         table {
@@ -76,10 +97,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
         .btn:hover {
             background-color: #0056b3;
         }
+
+        .btn-delete {
+            background-color: #e74c3c;
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
     </style>
 </head>
 <body>
-    <h1>Users List</h1>
+    <h1>Orders List</h1>
 
     <?php
     if (isset($_SESSION['message'])) {
@@ -90,25 +119,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
 
     <table>
         <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Order ID</th>
             <th>Email</th>
-            <th>action</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Action</th>
         </tr>
         <?php
-        $sql = "SELECT user_id, firstName, lastName, email FROM users";
+        $sql = "SELECT orderid, email, product, quantity, total FROM orders";
         if ($result = $conn->query($sql)) {
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . $row['user_id'] . "</td>";
-                echo "<td>" . $row['firstName'] . "</td>";
-                echo "<td>" . $row['lastName'] . "</td>";
+                echo "<td>" . $row['orderid'] . "</td>";
                 echo "<td>" . $row['email'] . "</td>";
+                echo "<td>" . $row['product'] . "</td>";
+                echo "<td>" . $row['quantity'] . "</td>";
+                echo "<td>" . $row['total'] . "</td>";
                 echo "<td>
-                        <a href='update_user.php?user_id=" . $row['user_id'] . "' class='btn'>Update</a>
                         <form method='post' style='display:inline;' onsubmit='return confirm(\"Are you sure you want to delete?\")'>
-                            <input type='hidden' name='user_id' value='" . $row['user_id'] . "'>
+                            <input type='hidden' name='order_id' value='" . $row['orderid'] . "'>
                             <button type='submit' name='delete' class='btn btn-delete'>Delete</button>
                         </form>
                       </td>";
@@ -116,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
             }
             $result->free();
         } else {
-            echo "<tr><td colspand='4'>No users found.</td></tr>";
+            echo "<tr><td colspan='6'>No orders found.</td></tr>";
         }
         $conn->close();
         ?>
@@ -124,3 +154,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     <a href="homepage.php" class="btn">Back to Homepage</a>
 </body>
 </html>
+``

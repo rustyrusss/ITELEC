@@ -35,7 +35,7 @@
 
             <div class="input-group">
                 <i class="fas fa-lock"></i>
-                <input type="password" name="password" id="password" placeholder="Password" required>
+                <input type="password" name="password" id="password" placeholder="password" required>
                 <label for="password">Password:</label>
             </div>
 
@@ -44,7 +44,14 @@
                 <input type="password" name="cpassword" id="cpassword" placeholder="Cpassword" required>
                 <label for="cpassword">Confirm Password:</label>
             </div>
-            
+
+            <div class="input-role">
+                <i class="fas fa-user-tag"></i>
+                <select name="role" id="role" required>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
 
             <input type="submit" class="btn" value="Sign Up" name="signUp">
         </form>
@@ -62,16 +69,16 @@
 
         <div class="container" id="signIn">
             <h1 class="form-title">SIGN IN</h1>
-            <form method="post" action="register.php">
+            <form method="post" action="signIn.php">
               <div class="input-group">
                   <i class="fas fa-envelope"></i>
-                  <input type="email" name="email" id="email" placeholder="Email" required>
+                  <input type="email" name="email" id="email" placeholder="email" required>
                   <label for="email">Email</label>
               </div>
 
               <div class="input-group">
                   <i class="fas fa-lock"></i>
-                  <input type="password" name="password" id="password" placeholder="Password" required>
+                  <input type="password" name="password" id="password" placeholder="password" required>
                   <label for="password">Password</label>
               </div>
 

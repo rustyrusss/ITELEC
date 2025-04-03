@@ -5,9 +5,11 @@ $user = "root";
 $password = ""; 
 $database = "login"; 
 
-$conn = new mysqli($host, $user, $password, $database);
+// Create the database connection
+$conn = mysqli_connect($host, $user, $password, $database);
 
+// Check the connection
 if ($conn->connect_error) {
-    echo "Failed to connect Database".$conn->connect_error;
+    die("Failed to connect to Database: " . $conn->connect_error);
 }
 ?>
