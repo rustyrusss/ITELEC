@@ -73,6 +73,7 @@ mysqli_stmt_close($query); // Close the prepared statement
             <a href="logout.php" class="btn">Logout</a>
             <a href="display_users.php" class="btn">View Users</a>
             <a href="viewproducts.php" class="btn">View Products</a>
+            <a href="vieworders.php" class="btn">View Orders</a>
         </div>
     </div>
 </body>

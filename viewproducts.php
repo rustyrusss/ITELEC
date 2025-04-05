@@ -124,11 +124,11 @@ include 'connect.php';
         }
 
         .update-btn {
-            background-color: orange;
+            background-color: green;
         }
 
         .update-btn:hover {
-            background-color: darkorange;
+            background-color: lightgreen;
         }
     </style>
 </head>
@@ -151,7 +151,7 @@ include 'connect.php';
         <h1>Products List</h1>
         <table>
             <tr>
-                <th>ID</th>
+                <th>Product_id</th>
                 <th>Product Name</th>
                 <th>Brand</th>
                 <th>Price</th>
@@ -160,20 +160,20 @@ include 'connect.php';
                 <th>Actions</th>
             </tr>
             <?php
-            $sql = "SELECT id, ProductName, Brand, Price, Quantity, Description FROM products";
+            $sql = "SELECT Product_id, ProductName, Brand, Price, Quantity, Description FROM products";
             if ($result = $conn->query($sql)) {
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['Product_id']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['ProductName']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['Brand']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['Price']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['Quantity']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['Description']) . "</td>";
                         echo "<td>"
-                            . "<a href='update_product.php?id=" . $row['id'] . "' class='update-btn'>Update</a> "
-                            . "<a href='delete_product.php?id=" . $row['id'] . "' class='delete-btn'>Delete</a>"
+                            . "<a href='update_product.php?Product_id=" . $row['Product_id'] . "' class='update-btn'>Update</a> "
+                            . "<a href='delete_product.php?Product_id=" . $row['Product_id'] . "' class='delete-btn'>Delete</a>"
                             . "</td>";
                         echo "</tr>";
                     }

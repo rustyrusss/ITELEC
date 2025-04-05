@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     }
 
     // Secure update query
-    $updateStmt = $conn->prepare("UPDATE users SET firstName = ?, lastName = ?, email = ? WHERE id = ?");
+    $updateStmt = $conn->prepare("UPDATE users SET firstName = ?, lastName = ?, email = ? WHERE user_id = ?");
     $updateStmt->bind_param("sssi", $firstName, $lastName, $email, $id);
 
     if ($updateStmt->execute()) {

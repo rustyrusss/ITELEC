@@ -1,11 +1,11 @@
 <?php
 include 'connect.php';
 
-if (isset($_GET['id'])) {
-    $id = intval($_GET['id']); // Sanitize input
+if (isset($_GET['Product_id'])) {
+    $id = intval($_GET['Product_id']); // Sanitize input
 
     // Prepare the DELETE query
-    $sql = "DELETE FROM products WHERE id = ?";
+    $sql = "DELETE FROM products WHERE product_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
 
